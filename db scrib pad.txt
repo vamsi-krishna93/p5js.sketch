@@ -1,0 +1,235 @@
+Distinct keyword:
+
+IN operator: multiple possible values options(eg user's name shows up in a list of names 
+-if value is included in a list of multiple actions
+---------------------------------
+select * from customer
+Where first_namr in ('vamsi','krishna')
+---------------------------------
+
+
+
+PATTERN MATCHING WITH STRING DATA:
+ 
+LIke and Ilike:
+when we want to match the data base entries with a pattern in a string 
+EG:: @gmail.com
+or all names that begin with 'A'
+
+LIKE:     use of Wildcard characters (CASE SENSITIVE
+	* PERCENT %:
+		- matches any sequence of characters
+	where name LIKE %A
+
+	*UNDERSCORE:
+		-matches a single string or character
+	Where value like version#__
+                 	
+ILIKE :    CASE INSENSITIVE)
+Where title like mission impossible_
+
+
+Where name like '_her%'   --> allows any single character before 'her' and any number of character after 'her'
+
+	-c her yl
+	-t her esa
+------------------------------------------------------------
+select * from customer
+where first_name like 'J%' and last_name like 'S%'                        (john sanchez
+-----------------------------------------------------------------
+
+select * from customer
+where first_name ilike 'j%' and last_name ilike 's%'
+
+-----------------------------------------------------------------
+
+select * from customer
+where first_name ilike '%er%' and last_name ilike '%an%'           (jeremy julian)
+
+--------------------------------------------------------------------
+select * from customer
+where first_name not ilike '_er___'
+	
+
+
+
+=============================================================================================
+INNER JOIN:
+
+result with set of tables match in both 
+
+select payment_id,payment.customer_id 
+from payment
+INNER JOIN customer
+on payment.customer_id=customer.customer_id
+
+
+
+
+
+
+
+
+
+=========================================================================================
+OUTER JOIN: grabs everything
+
+select * from customer
+FULL outer join payment
+on customer.customer_id=payment.customer_id
+where customer.customer_id is null or payment.customer_id is null
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================================\
+
+LEFT OUTER JOIN : TAken only A out of A and B 
+can also be used to find A-B (only A no a inter b)
+
+select film.film_id,title,inventory_id from film
+left join inventory on 
+film.film_id=inventory.film_id
+where inventory.film_id is null
+
+
+=======================================================================================
+
+RIGHT outer   JOIN - Reverse of LEft outer join
+
+
+
+
+
+
+
+
+
+
+
+
+====================================================================================
+
+UNION- Concatenate results of two select statements:( tuples must be homogenous)
+
+
+select * from sales2020
+UNION
+select * from sales2021
+
+=====================================================
+TIME 
+DATE
+TIMESTAMP
+TIMESTAMPtz - TIME ZONE 
+
+operatins:
+show - all parameters listed and connections
+now()- shoes time now
+select current time()
+select current date()
+
+select TIMEOFDay()
+
+
+======================================================================
+EXCTRACT 
+:
+
+exctract (year from date_obj)
+
+select extract(year from payment_date) from payment
+
+
+select count(payment_date) from payment
+where extract(dow from payment_date)=1               (DOW-- DATE OF WEEK)
+
+=============================================================================
+
+Age(date_col)
+select age(payment_date) from payment
+
+========================================================
+TO_CHAR() - 
+select to_char(payment_date,'Mon-YYYY') from payment   ( MON= FEB , MONTH - FEBRUARY , mon-feb)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================================================
+LENGTH
+select Length(first_name) from customer
+
+
+============================================================
+concetante
+
+select first_name ||  ' . ' || last_name from customer
+
+
+======================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+sub query -----
+
+select title from film 
+where rental_rate>
+(select avg(rental_rate) from film)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EXISTS:
+ checks is there are any row in the returned sub q query
+
+
+
+
+
+
+
+
+
+
+
